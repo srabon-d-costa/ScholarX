@@ -10,18 +10,26 @@ checkRole(3);
 
 ?>
 
+
 <!DOCTYPE html>
 <html>
 
 <head>
-<title>Supervisor Dashboard</title>
+
+<title>
+Supervisor Dashboard
+</title>
+
 </head>
 
+
 <body>
+
 
 <h1>
 Welcome Supervisor
 </h1>
+
 
 <p>
 ScholarX Supervisor Research Management
@@ -30,10 +38,47 @@ ScholarX Supervisor Research Management
 
 <ul>
 
-<li>Create Research Opportunities</li>
-<li>Review Proposals</li>
-<li>Manage Research Teams</li>
-<li>Give Feedback</li>
+<li>
+<a href="../research/create.php">
+Create Research Opportunities
+</a>
+</li>
+
+
+<li>
+<a href="../research/manage.php">
+Manage Research Opportunities
+</a>
+</li>
+
+
+<li>
+<a href="applications.php">
+Review Student Applications
+</a>
+</li>
+
+
+<li>
+<a href="teams.php">
+Manage Research Teams
+</a>
+</li>
+
+
+<li>
+<a href="feedback.php">
+Give Feedback
+</a>
+</li>
+
+<li>
+<a href="projects.php">
+Manage Research Projects
+</a>
+</li>
+
+
 
 </ul>
 
