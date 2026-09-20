@@ -72,9 +72,17 @@ Give Feedback
 </a>
 </li>
 
+
 <li>
 <a href="projects.php">
 Manage Research Projects
+</a>
+</li>
+
+
+<li>
+<a href="proposals.php">
+Review Research Proposals
 </a>
 </li>
 

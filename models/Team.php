@@ -336,6 +336,39 @@ class Team
 
     }
 
+    // Get teams of a student
+    public function getStudentTeams($student_id)
+    {
+
+        $query = "
+
+        SELECT
+
+        research_teams.*
+
+        FROM research_teams
+        INNER JOIN team_members
+        ON research_teams.id = team_members.team_id
+        WHERE team_members.user_id = ?
+        ORDER BY research_teams.created_at DESC
+
+        ";
+
+
+        $stmt = $this->db->prepare($query);
+
+
+        $stmt->execute([
+
+            $student_id
+
+        ]);
+
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
 
 }
 

@@ -109,6 +109,10 @@ class TeamController
 
     }
 
+
+
+
+
     // Get students
     public function students()
     {
@@ -117,6 +121,21 @@ class TeamController
 
     }
 
+
+
+
+
+    // Get teams of a student
+    public function studentTeams($student_id)
+    {
+
+        return $this->teamModel->getStudentTeams(
+
+            $student_id
+
+        );
+
+    }
 
 
 }

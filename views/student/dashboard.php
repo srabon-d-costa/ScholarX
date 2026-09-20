@@ -42,65 +42,44 @@ ScholarX Student Research Portal
 
 
 <li>
-
 <a href="opportunities.php">
-
 Browse Research Opportunities
-
 </a>
-
 </li>
 
 
-
-
 <li>
-
 <a href="my_applications.php">
-
 Apply for Projects
-
 </a>
-
 </li>
 
 
-
-
 <li>
-
 <a href="teams.php">
-
 Manage Research Team
-
 </a>
-
 </li>
 
 
-
-
 <li>
-
 <a href="milestones.php">
-
 Track Milestones
-
 </a>
-
 </li>
 
 
+<li>
+<a href="feedbacks.php">
+View Feedback
+</a>
+</li>
 
 
 <li>
-
-<a href="feedbacks.php">
-
-View Feedback
-
+<a href="create_proposal.php">
+Submit Research Proposal
 </a>
-
 </li>
 
 
