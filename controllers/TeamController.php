@@ -2,142 +2,97 @@
 
 require_once __DIR__ . "/../models/Team.php";
 
-
 class TeamController
 {
-
     private $teamModel;
-
-
 
     public function __construct()
     {
         $this->teamModel = new Team();
     }
 
-
-
-
-
-    // Create new research team
+    // Create research team
     public function createTeam(
-        $project_id,
-        $team_name,
-        $supervisor_id
+        $name,
+        $description,
+        $created_by
     )
     {
-
         return $this->teamModel->createTeam(
-            $project_id,
-            $team_name,
-            $supervisor_id
+            $name,
+            $description,
+            $created_by
         );
-
     }
 
-
-
-
-
-    // Get supervisor teams
-    public function teams($supervisor_id)
+    // Get teams created by supervisor
+    public function teams($created_by)
     {
-
         return $this->teamModel->getSupervisorTeams(
-            $supervisor_id
+            $created_by
         );
-
     }
 
-
-
-
-
-    // Get team details
-    public function teamDetails($team_id)
+    // Get single team
+    public function teamDetails($id)
     {
-
         return $this->teamModel->getTeamById(
-            $team_id
+            $id
         );
-
     }
-
-
-
-
 
     // Add student member
     public function addMember(
         $team_id,
-        $student_id
+        $user_id
     )
     {
-
         return $this->teamModel->addMember(
             $team_id,
-            $student_id
+            $user_id
         );
-
     }
-
-
-
-
 
     // Get team members
     public function members($team_id)
     {
-
         return $this->teamModel->getMembers(
             $team_id
         );
-
     }
 
-
-
-
-
-    // Remove team member
-    public function removeMember($member_id)
+    // Remove member
+    public function removeMember($id)
     {
-
         return $this->teamModel->removeMember(
-            $member_id
+            $id
         );
-
     }
 
+    // Check member
+    public function checkMember(
+        $team_id,
+        $user_id
+    )
+    {
+        return $this->teamModel->checkMember(
+            $team_id,
+            $user_id
+        );
+    }
 
-
-
-
-    // Get students
+    // Get available students
     public function students()
     {
-
         return $this->teamModel->getStudents();
-
     }
 
-
-
-
-
-    // Get teams of a student
+    // Get teams belonging to student
     public function studentTeams($student_id)
     {
-
         return $this->teamModel->getStudentTeams(
-
             $student_id
-
         );
-
     }
-
-
 }
-
 ?>

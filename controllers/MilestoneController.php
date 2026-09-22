@@ -9,14 +9,10 @@ class MilestoneController
     private $milestoneModel;
 
 
-
     public function __construct()
     {
         $this->milestoneModel = new Milestone();
     }
-
-
-
 
 
     // Create milestone
@@ -24,7 +20,7 @@ class MilestoneController
         $project_id,
         $title,
         $description,
-        $deadline
+        $due_date
     )
     {
 
@@ -33,14 +29,11 @@ class MilestoneController
             $project_id,
             $title,
             $description,
-            $deadline
+            $due_date
 
         );
 
     }
-
-
-
 
 
     // Get project milestones
@@ -56,9 +49,6 @@ class MilestoneController
     }
 
 
-
-
-
     // Get single milestone
     public function milestoneDetails($id)
     {
@@ -70,9 +60,6 @@ class MilestoneController
         );
 
     }
-
-
-
 
 
     // Update milestone status
@@ -92,29 +79,6 @@ class MilestoneController
     }
 
 
-
-
-
-    // Update milestone progress
-    public function updateProgress(
-        $id,
-        $progress
-    )
-    {
-
-        return $this->milestoneModel->updateProgress(
-
-            $id,
-            $progress
-
-        );
-
-    }
-
-
-
-
-
     // Delete milestone
     public function deleteMilestone($id)
     {
@@ -126,7 +90,6 @@ class MilestoneController
         );
 
     }
-
 
 }
 

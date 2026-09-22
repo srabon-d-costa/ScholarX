@@ -5,16 +5,10 @@ session_start();
 require_once "../../helpers/auth_check.php";
 require_once "../../controllers/MilestoneController.php";
 
-
 checkLogin();
-
 checkRole(3);
 
-
-
-$milestone = new MilestoneController();
-
-
+$milestoneController = new MilestoneController();
 
 if(!isset($_GET['project_id']))
 {
@@ -22,20 +16,13 @@ if(!isset($_GET['project_id']))
     exit();
 }
 
-
-
 $project_id = $_GET['project_id'];
-
-
 
 $message = "";
 
-
-
 if(isset($_POST['create']))
 {
-
-    $result = $milestone->createMilestone(
+    $result = $milestoneController->createMilestone(
 
         $project_id,
 
@@ -43,161 +30,127 @@ if(isset($_POST['create']))
 
         $_POST['description'],
 
-        $_POST['deadline']
+        $_POST['due_date']
 
     );
 
-
     if($result)
     {
-        $message = "Milestone Created Successfully";
+        // Go directly to milestone list
+        header(
+            "Location: milestones.php?project_id=" . $project_id
+        );
+
+        exit();
     }
     else
     {
         $message = "Failed To Create Milestone";
     }
-
 }
 
-
 ?>
-
 
 <!DOCTYPE html>
 <html>
 
-
 <head>
 
 <title>
-Create Milestone - ScholarX
+Create Research Milestone - ScholarX
 </title>
 
 </head>
 
-
 <body>
-
 
 <h1>
 Create Research Milestone
 </h1>
 
+<a href="milestones.php?project_id=<?= $project_id; ?>">
 
-
-<a href="project_details.php?id=<?= $project_id; ?>">
-
-← Back to Project
+← Back to Milestones
 
 </a>
 
-
 <br><br>
 
-
+<?php if($message != ""): ?>
 
 <p>
-
-<?= $message; ?>
-
+<?= htmlspecialchars($message); ?>
 </p>
 
-
+<?php endif; ?>
 
 
 <form method="POST">
-
 
 
 <label>
 Milestone Title
 </label>
 
-
 <br>
 
-
 <input
-
 type="text"
-
 name="title"
-
 placeholder="Example: Dataset Preparation"
-
-required>
-
+required
+>
 
 
 <br><br>
-
-
-
 
 
 <label>
 Milestone Description
 </label>
 
-
 <br>
 
-
 <textarea
-
 name="description"
-
 rows="5"
-
 cols="40"
-
-placeholder="Describe milestone task"
-
-required>
-
-</textarea>
-
+required
+></textarea>
 
 
 <br><br>
-
-
-
 
 
 <label>
-Deadline
+Due Date
 </label>
-
 
 <br>
 
-
 <input
-
 type="date"
-
-name="deadline"
-
-required>
-
+name="due_date"
+required
+>
 
 
 <br><br>
 
-<button name="create">
+
+<button
+type="submit"
+name="create"
+>
 
 Create Milestone
 
 </button>
 
 
-
 </form>
 
 
-
 </body>
-
 
 </html>

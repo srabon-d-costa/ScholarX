@@ -9,7 +9,6 @@ class Milestone
     private $db;
 
 
-
     public function __construct()
     {
         $database = new Database();
@@ -26,7 +25,7 @@ class Milestone
         $project_id,
         $title,
         $description,
-        $deadline
+        $due_date
     )
     {
 
@@ -37,7 +36,7 @@ class Milestone
             project_id,
             title,
             description,
-            deadline
+            due_date
         )
 
         VALUES
@@ -56,7 +55,7 @@ class Milestone
             $project_id,
             $title,
             $description,
-            $deadline
+            $due_date
 
         ]);
 
@@ -78,7 +77,7 @@ class Milestone
 
         WHERE project_id = ?
 
-        ORDER BY deadline ASC
+        ORDER BY due_date ASC
 
         ";
 
@@ -175,26 +174,15 @@ class Milestone
     )
     {
 
-        $query = "
+        /*
+        Your current milestones table does NOT
+        have a progress column.
 
-        UPDATE milestones
+        So this function is intentionally not
+        updating progress yet.
+        */
 
-        SET progress = ?
-
-        WHERE id = ?
-
-        ";
-
-
-        $stmt = $this->db->prepare($query);
-
-
-        return $stmt->execute([
-
-            $progress,
-            $id
-
-        ]);
+        return false;
 
     }
 

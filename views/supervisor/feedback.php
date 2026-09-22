@@ -4,277 +4,282 @@ session_start();
 
 require_once "../../helpers/auth_check.php";
 require_once "../../controllers/FeedbackController.php";
-require_once "../../controllers/ResearchController.php";
+require_once "../../controllers/ResearchProjectController.php";
 require_once "../../controllers/TeamController.php";
 
-
 checkLogin();
-
 checkRole(3);
 
+$feedbackController = new FeedbackController();
+$projectController = new ResearchProjectController();
+$teamController = new TeamController();
 
-
-$feedback = new FeedbackController();
-
-$research = new ResearchController();
-
-$team = new TeamController();
-
-
+$supervisor_id = $_SESSION['user_id'];
 
 $message = "";
 
-
-
-// Load projects created by supervisor
-$projects = $research->opportunities();
-
-
+// Load research projects created by this supervisor
+$projects = $projectController->projects($supervisor_id);
 
 // Load students
-$students = $team->students();
+$students = $teamController->students();
 
 
+// Submit feedback
+if (isset($_POST['submit'])) {
 
+    $project_id = $_POST['project_id'];
+    $student_id = $_POST['student_id'];
+    $feedback_message = trim($_POST['message']);
+    $rating = $_POST['rating'];
 
+    if (
+        $project_id == "" ||
+        $student_id == "" ||
+        $feedback_message == ""
+    ) {
 
-if(isset($_POST['submit']))
-{
+        $message = "Please fill in all required fields.";
 
-    $result = $feedback->createFeedback(
+    } else {
 
-        $_POST['project_id'],
+        $result = $feedbackController->createFeedback(
+            $project_id,
+            $supervisor_id,
+            $student_id,
+            $feedback_message,
+            $rating
+        );
 
-        $_SESSION['user_id'],
+        if ($result) {
 
-        $_POST['student_id'],
+            $message = "Feedback Submitted Successfully";
 
-        $_POST['message'],
+        } else {
 
-        $_POST['rating']
+            $message = "Failed To Submit Feedback";
 
-    );
-
-
-
-    if($result)
-    {
-        $message = "Feedback Submitted Successfully";
+        }
     }
-    else
-    {
-        $message = "Failed To Submit Feedback";
-    }
-
 }
 
 
-?>
+// Get feedback given by this supervisor
+$feedbacks = $feedbackController->supervisorFeedback(
+    $supervisor_id
+);
 
+?>
 
 <!DOCTYPE html>
 <html>
 
-
 <head>
 
-<title>
-Give Feedback - ScholarX
-</title>
+    <title>Give Feedback - ScholarX</title>
 
 </head>
 
-
-
 <body>
 
-
-<h1>
-Give Research Feedback
-</h1>
-
-
+<h1>Give Research Feedback</h1>
 
 <a href="dashboard.php">
-
-← Back to Dashboard
-
+    ← Back to Dashboard
 </a>
-
 
 <br><br>
 
 
+<?php if ($message != ""): ?>
 
 <p>
-
-<?= $message; ?>
-
+    <?= htmlspecialchars($message); ?>
 </p>
 
+<?php endif; ?>
 
+
+<h2>Submit Feedback</h2>
 
 
 <form method="POST">
 
+    <label>
+        Select Research Project
+    </label>
 
+    <br>
 
-<label>
-Select Research Project
-</label>
+    <select name="project_id" required>
 
-<br>
+        <option value="">
+            Select Project
+        </option>
 
+        <?php foreach ($projects as $project): ?>
 
-<select name="project_id" required>
+            <option value="<?= $project['id']; ?>">
 
+                <?= htmlspecialchars($project['title']); ?>
 
-<option value="">
-Select Project
-</option>
+            </option>
 
+        <?php endforeach; ?>
 
+    </select>
 
-<?php foreach($projects as $project): ?>
 
+    <br><br>
 
-<option value="<?= $project['id']; ?>">
 
-<?= $project['title']; ?>
+    <label>
+        Select Student
+    </label>
 
-</option>
+    <br>
 
+    <select name="student_id" required>
 
-<?php endforeach; ?>
+        <option value="">
+            Select Student
+        </option>
 
+        <?php foreach ($students as $student): ?>
 
-</select>
+            <option value="<?= $student['id']; ?>">
 
+                <?= htmlspecialchars($student['name']); ?>
 
+                -
+                <?= htmlspecialchars($student['email']); ?>
 
-<br><br>
+            </option>
 
+        <?php endforeach; ?>
 
+    </select>
 
 
+    <br><br>
 
-<label>
-Select Student
-</label>
 
+    <label>
+        Feedback Message
+    </label>
 
-<br>
+    <br>
 
+    <textarea
+        name="message"
+        rows="5"
+        cols="50"
+        required
+    ></textarea>
 
 
-<select name="student_id" required>
+    <br><br>
 
 
-<option value="">
-Select Student
-</option>
+    <label>
+        Rating (1-5)
+    </label>
 
+    <br>
 
+    <input
+        type="number"
+        name="rating"
+        min="1"
+        max="5"
+        value="5"
+        required
+    >
 
-<?php foreach($students as $student): ?>
 
+    <br><br>
 
-<option value="<?= $student['id']; ?>">
 
-<?= $student['name']; ?>
-
--
-<?= $student['email']; ?>
-
-</option>
-
-
-<?php endforeach; ?>
-
-
-</select>
-
-
-
-<br><br>
-
-
-
-
-
-<label>
-Feedback Message
-</label>
-
-
-<br>
-
-
-
-<textarea
-
-name="message"
-
-rows="5"
-
-cols="40"
-
-required>
-
-</textarea>
-
-
-
-<br><br>
-
-
-
-
-
-<label>
-Rating (1-5)
-</label>
-
-
-<br>
-
-
-
-<input
-
-type="number"
-
-name="rating"
-
-min="1"
-
-max="5"
-
-value="5"
-
-required>
-
-
-
-<br><br>
-
-
-
-
-
-<button name="submit">
-
-Submit Feedback
-
-</button>
-
-
+    <button
+        type="submit"
+        name="submit"
+    >
+        Submit Feedback
+    </button>
 
 </form>
 
 
+<br>
+
+<hr>
+
+<br>
+
+
+<h2>Feedback Given</h2>
+
+
+<?php if (count($feedbacks) > 0): ?>
+
+<table border="1" cellpadding="10">
+
+    <tr>
+
+        <th>
+            Student
+        </th>
+
+        <th>
+            Feedback
+        </th>
+
+        <th>
+            Rating
+        </th>
+
+        <th>
+            Date
+        </th>
+
+    </tr>
+
+
+    <?php foreach ($feedbacks as $feedback): ?>
+
+    <tr>
+
+        <td>
+            <?= htmlspecialchars($feedback['student_name']); ?>
+        </td>
+
+        <td>
+            <?= htmlspecialchars($feedback['message']); ?>
+        </td>
+
+        <td>
+            <?= htmlspecialchars($feedback['rating']); ?>/5
+        </td>
+
+        <td>
+            <?= htmlspecialchars($feedback['created_at']); ?>
+        </td>
+
+    </tr>
+
+    <?php endforeach; ?>
+
+</table>
+
+<?php else: ?>
+
+<p>
+    No feedback has been given yet.
+</p>
+
+<?php endif; ?>
+
 
 </body>
-
 
 </html>

@@ -5,140 +5,95 @@ session_start();
 require_once "../../helpers/auth_check.php";
 require_once "../../controllers/TeamController.php";
 
-
 checkLogin();
-
 checkRole(3);
 
+$teamController = new TeamController();
 
-$team = new TeamController();
+$supervisor_id = $_SESSION['user_id'];
 
-
-$teams = $team->teams(
-    $_SESSION['user_id']
-);
+$teams = $teamController->teams($supervisor_id);
 
 ?>
-
 
 <!DOCTYPE html>
 <html>
 
 <head>
-
-<title>
-Research Teams - ScholarX
-</title>
-
+    <title>Research Teams - ScholarX</title>
 </head>
-
 
 <body>
 
+<h1>Research Teams</h1>
 
-<h1>
-Research Teams
-</h1>
-
-
-<a href="../supervisor/dashboard.php">
-← Back to Dashboard
+<a href="dashboard.php">
+    ← Back to Dashboard
 </a>
 
-
 <br><br>
-
 
 <a href="create_team.php">
-
-<button>
-Create New Team
-</button>
-
+    <button type="button">
+        Create New Team
+    </button>
 </a>
 
-
 <br><br>
-
-
 
 <table border="1" cellpadding="10">
 
-
 <tr>
-
-<th>
-ID
-</th>
-
-
-<th>
-Team Name
-</th>
-
-
-<th>
-Description
-</th>
-
-
-<th>
-Created Date
-</th>
-
-
-<th>
-Action
-</th>
-
+    <th>ID</th>
+    <th>Team Name</th>
+    <th>Description</th>
+    <th>Created At</th>
+    <th>Action</th>
 </tr>
 
+<?php if (count($teams) > 0): ?>
 
+    <?php foreach ($teams as $team): ?>
 
+        <tr>
 
-<?php foreach($teams as $teamData): ?>
+            <td>
+                <?= htmlspecialchars($team['id']); ?>
+            </td>
 
+            <td>
+                <?= htmlspecialchars($team['name']); ?>
+            </td>
 
-<tr>
+            <td>
+                <?= htmlspecialchars($team['description']); ?>
+            </td>
 
+            <td>
+                <?= htmlspecialchars($team['created_at']); ?>
+            </td>
 
-<td>
-<?= $teamData['id']; ?>
-</td>
+            <td>
+                <a href="team_details.php?id=<?= $team['id']; ?>">
+                    Manage
+                </a>
+            </td>
 
+        </tr>
 
-<td>
-<?= $teamData['name']; ?>
-</td>
+    <?php endforeach; ?>
 
+<?php else: ?>
 
-<td>
-<?= $teamData['description']; ?>
-</td>
+    <tr>
+        <td colspan="5">
+            No research teams found.
+        </td>
+    </tr>
 
-
-<td>
-<?= $teamData['created_at']; ?>
-</td>
-
-
-<td>
-
-<a href="team_details.php?id=<?= $teamData['id']; ?>">
-Manage
-</a>
-
-</td>
-
-
-</tr>
-
-
-<?php endforeach; ?>
-
+<?php endif; ?>
 
 </table>
-
 
 </body>
 

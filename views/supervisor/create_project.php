@@ -4,41 +4,29 @@ session_start();
 
 require_once "../../helpers/auth_check.php";
 require_once "../../controllers/ResearchProjectController.php";
-
+require_once "../../controllers/ProposalController.php";
 
 checkLogin();
-
 checkRole(3);
 
-
-
 $project = new ResearchProjectController();
-
-
+$proposalController = new ProposalController();
 
 $message = "";
 
-
+// Get approved proposals
+$approvedProposals = $proposalController->approvedProposals();
 
 if(isset($_POST['create']))
 {
-
     $result = $project->createProject(
-
         $_POST['proposal_id'],
-
         $_POST['title'],
-
         $_POST['description'],
-
         $_SESSION['user_id'],
-
         $_POST['start_date'],
-
         $_POST['end_date']
-
     );
-
 
     if($result)
     {
@@ -49,77 +37,64 @@ if(isset($_POST['create']))
         $message = "Failed To Create Research Project";
     }
 
+    // Refresh approved proposals after submission
+    $approvedProposals = $proposalController->approvedProposals();
 }
 
-
 ?>
-
 
 <!DOCTYPE html>
 <html>
 
-
 <head>
 
-<title>
-Create Research Project - ScholarX
-</title>
+<title>Create Research Project - ScholarX</title>
 
 </head>
 
-
 <body>
-
 
 <h1>
 Create Research Project
 </h1>
 
-
 <a href="projects.php">
-
 ← Back to Projects
-
 </a>
-
 
 <br><br>
 
-
-
 <p>
-
-<?= $message; ?>
-
+<?= htmlspecialchars($message); ?>
 </p>
-
-
-
 
 <form method="POST">
 
-
-
 <label>
-Proposal ID
+Select Approved Proposal
 </label>
 
 <br>
 
+<select name="proposal_id" required>
 
-<input
+<option value="">
+Select an Approved Proposal
+</option>
 
-type="number"
+<?php foreach($approvedProposals as $proposal): ?>
 
-name="proposal_id"
+<option value="<?= $proposal['id']; ?>">
 
-required>
+<?= htmlspecialchars($proposal['title']); ?>
 
+</option>
+
+<?php endforeach; ?>
+
+</select>
 
 <br><br>
-
-
-
 
 
 <label>
@@ -128,21 +103,13 @@ Project Title
 
 <br>
 
-
 <input
-
 type="text"
-
 name="title"
-
+placeholder="Enter Project Title"
 required>
 
-
-
 <br><br>
-
-
-
 
 
 <label>
@@ -151,25 +118,14 @@ Project Description
 
 <br>
 
-
 <textarea
-
 name="description"
-
 rows="5"
-
 cols="40"
-
-required>
-
-</textarea>
-
-
+placeholder="Enter Project Description"
+required></textarea>
 
 <br><br>
-
-
-
 
 
 <label>
@@ -178,21 +134,12 @@ Start Date
 
 <br>
 
-
 <input
-
 type="date"
-
 name="start_date"
-
 required>
 
-
-
 <br><br>
-
-
-
 
 
 <label>
@@ -201,36 +148,20 @@ End Date
 
 <br>
 
-
 <input
-
 type="date"
-
 name="end_date"
-
 required>
-
-
 
 <br><br>
 
 
-
-
-
-<button name="create">
-
+<button type="submit" name="create">
 Create Project
-
 </button>
-
-
 
 </form>
 
-
-
 </body>
-
 
 </html>

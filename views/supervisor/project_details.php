@@ -5,325 +5,188 @@ session_start();
 require_once "../../helpers/auth_check.php";
 require_once "../../controllers/ResearchProjectController.php";
 
-
 checkLogin();
-
 checkRole(3);
-
-
 
 $project = new ResearchProjectController();
 
-
-
-if(!isset($_GET['id']))
-{
+if (!isset($_GET['id'])) {
     header("Location: projects.php");
     exit();
 }
 
-
-
 $id = $_GET['id'];
-
-
 
 $projectData = $project->projectDetails($id);
 
-
-
-if(!$projectData)
-{
+if (!$projectData) {
     echo "Project Not Found";
     exit();
 }
 
-
-
 $message = "";
 
-
-
-if(isset($_POST['update']))
-{
+// Update project status
+if (isset($_POST['update'])) {
 
     $statusResult = $project->updateStatus(
-
         $id,
-
         $_POST['status']
-
     );
 
-
-    $progressResult = $project->updateProgress(
-
-        $id,
-
-        $_POST['progress']
-
-    );
-
-
-    if($statusResult && $progressResult)
-    {
-        $message = "Project Updated Successfully";
-
+    if ($statusResult) {
+        $message = "Project Status Updated Successfully";
         $projectData = $project->projectDetails($id);
-    }
-    else
-    {
+    } else {
         $message = "Update Failed";
     }
-
 }
 
+// Calculate project progress automatically
+$calculatedProgress = $project->calculateProgress($id);
+
+// Synchronize calculated progress with database
+if ($projectData['progress'] != $calculatedProgress) {
+
+    $project->updateProgress(
+        $id,
+        $calculatedProgress
+    );
+
+    $projectData = $project->projectDetails($id);
+}
 
 ?>
-
 
 <!DOCTYPE html>
 <html>
 
-
 <head>
 
-<title>
-Project Details - ScholarX
-</title>
+    <title>Project Details - ScholarX</title>
 
 </head>
 
-
 <body>
 
-
-<h1>
-Research Project Details
-</h1>
-
-
+<h1>Research Project Details</h1>
 
 <a href="projects.php">
-
-← Back to Projects
-
+    ← Back to Projects
 </a>
-
 
 <br><br>
 
-
+<?php if ($message != ""): ?>
 
 <p>
-
-<?= $message; ?>
-
+    <?= htmlspecialchars($message); ?>
 </p>
 
-
-
+<?php endif; ?>
 
 <table border="1" cellpadding="10">
 
+    <tr>
+        <th>Project Title</th>
+        <td>
+            <?= htmlspecialchars($projectData['title']); ?>
+        </td>
+    </tr>
 
-<tr>
+    <tr>
+        <th>Description</th>
+        <td>
+            <?= htmlspecialchars($projectData['description']); ?>
+        </td>
+    </tr>
 
-<th>
-Project Title
-</th>
+    <tr>
+        <th>Start Date</th>
+        <td>
+            <?= htmlspecialchars($projectData['start_date']); ?>
+        </td>
+    </tr>
 
-<td>
-<?= $projectData['title']; ?>
-</td>
+    <tr>
+        <th>End Date</th>
+        <td>
+            <?= htmlspecialchars($projectData['end_date']); ?>
+        </td>
+    </tr>
 
-</tr>
+    <tr>
+        <th>Current Status</th>
+        <td>
+            <?= htmlspecialchars($projectData['status']); ?>
+        </td>
+    </tr>
 
-
-
-
-<tr>
-
-<th>
-Description
-</th>
-
-<td>
-<?= $projectData['description']; ?>
-</td>
-
-</tr>
-
-
-
-
-<tr>
-
-<th>
-Start Date
-</th>
-
-<td>
-<?= $projectData['start_date']; ?>
-</td>
-
-</tr>
-
-
-
-
-<tr>
-
-<th>
-End Date
-</th>
-
-<td>
-<?= $projectData['end_date']; ?>
-</td>
-
-</tr>
-
-
-
-
-<tr>
-
-<th>
-Current Status
-</th>
-
-<td>
-<?= $projectData['status']; ?>
-</td>
-
-</tr>
-
-
-
-
-<tr>
-
-<th>
-Current Progress
-</th>
-
-<td>
-<?= $projectData['progress']; ?>%
-</td>
-
-</tr>
-
+    <tr>
+        <th>Current Progress</th>
+        <td>
+            <?= htmlspecialchars($calculatedProgress); ?>%
+        </td>
+    </tr>
 
 </table>
 
-
-
-<br><br>
-
-
-
-
-<h2>
-Update Project
-</h2>
-
-
-
+<h2>Update Project Status</h2>
 
 <form method="POST">
 
+    <label>Status</label>
 
-<label>
-Status
-</label>
+    <br>
 
-<br>
+    <select name="status" required>
 
+        <option
+            value="Approved"
+            <?= ($projectData['status'] == "Approved") ? "selected" : ""; ?>
+        >
+            Approved
+        </option>
 
-<select name="status">
+        <option
+            value="Active"
+            <?= ($projectData['status'] == "Active") ? "selected" : ""; ?>
+        >
+            Active
+        </option>
 
+        <option
+            value="On Hold"
+            <?= ($projectData['status'] == "On Hold") ? "selected" : ""; ?>
+        >
+            On Hold
+        </option>
 
-<option value="Pending"
-<?= ($projectData['status']=="Pending") ? "selected":""; ?>>
-Pending
-</option>
+        <option
+            value="Completed"
+            <?= ($projectData['status'] == "Completed") ? "selected" : ""; ?>
+        >
+            Completed
+        </option>
 
+    </select>
 
-<option value="Running"
-<?= ($projectData['status']=="Running") ? "selected":""; ?>>
-Running
-</option>
+    <br><br>
 
-
-<option value="Completed"
-<?= ($projectData['status']=="Completed") ? "selected":""; ?>>
-Completed
-</option>
-
-
-</select>
-
-
-<br><br>
-
-
-
-
-<label>
-Progress (%)
-</label>
-
-<br>
-
-
-<input
-
-type="number"
-
-name="progress"
-
-min="0"
-
-max="100"
-
-value="<?= $projectData['progress']; ?>">
-
-
-
-<br><br>
-
-
-
-<button name="update">
-
-Update Project
-
-</button>
-
-
+    <button type="submit" name="update">
+        Update Project Status
+    </button>
 
 </form>
 
+<h2>Project Milestones</h2>
 
-
-<br>
-
-
-
-<a href="create_milestone.php?project_id=<?= $id; ?>">
-
-<button>
-
-Manage Milestones
-
-</button>
-
+<a href="milestones.php?project_id=<?= $id; ?>">
+    <button type="button">
+        Manage Milestones
+    </button>
 </a>
 
-
-
 </body>
-
 
 </html>

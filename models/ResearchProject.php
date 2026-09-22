@@ -17,9 +17,6 @@ class ResearchProject
     }
 
 
-
-
-
     // Create research project
     public function createProject(
         $proposal_id,
@@ -68,9 +65,6 @@ class ResearchProject
     }
 
 
-
-
-
     // Get supervisor projects
     public function getSupervisorProjects($supervisor_id)
     {
@@ -103,9 +97,6 @@ class ResearchProject
     }
 
 
-
-
-
     // Get single project
     public function getProjectById($id)
     {
@@ -136,7 +127,71 @@ class ResearchProject
     }
 
 
+    // Calculate project progress from milestones
+    public function calculateProjectProgress($project_id)
+    {
 
+        $query = "
+
+        SELECT status
+
+        FROM milestones
+
+        WHERE project_id = ?
+
+        ";
+
+
+        $stmt = $this->db->prepare($query);
+
+
+        $stmt->execute([
+
+            $project_id
+
+        ]);
+
+
+        $milestones = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+        // No milestones
+        if(count($milestones) == 0)
+        {
+            return 0;
+        }
+
+
+        $totalProgress = 0;
+
+
+        foreach($milestones as $milestone)
+        {
+
+            if($milestone['status'] == 'Completed')
+            {
+                $totalProgress += 100;
+            }
+
+            elseif($milestone['status'] == 'In Progress')
+            {
+                $totalProgress += 50;
+            }
+
+            else
+            {
+                $totalProgress += 0;
+            }
+
+        }
+
+
+        $progress = $totalProgress / count($milestones);
+
+
+        return round($progress);
+
+    }
 
 
     // Update project progress
@@ -170,9 +225,6 @@ class ResearchProject
     }
 
 
-
-
-
     // Update project status
     public function updateStatus(
         $id,
@@ -204,9 +256,6 @@ class ResearchProject
     }
 
 
-
-
-
     // Delete project
     public function deleteProject($id)
     {
@@ -232,9 +281,6 @@ class ResearchProject
     }
 
 
-
-
-
     // Get all projects
     public function getAllProjects()
     {
@@ -258,6 +304,37 @@ class ResearchProject
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    }
+
+    // Get research projects belonging to a student
+    public function getStudentProjects($student_id)
+    {
+        $query = "
+            SELECT DISTINCT
+                research_projects.*
+            FROM research_projects
+
+            INNER JOIN proposals
+                ON research_projects.proposal_id = proposals.id
+
+            INNER JOIN research_teams
+                ON proposals.team_id = research_teams.id
+
+            INNER JOIN team_members
+                ON research_teams.id = team_members.team_id
+
+            WHERE team_members.user_id = ?
+
+            ORDER BY research_projects.created_at DESC
+        ";
+
+        $stmt = $this->db->prepare($query);
+
+        $stmt->execute([
+            $student_id
+        ]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 
