@@ -82,6 +82,12 @@ Submit Research Proposal
 </a>
 </li>
 
+<li>
+    <a href="announcements.php">
+        View Announcements
+    </a>
+</li>
+
 
 
 </ul>

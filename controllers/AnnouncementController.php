@@ -73,5 +73,13 @@ class AnnouncementController
     {
         return $this->announcementModel->deleteAnnouncement($id);
     }
+
+    // Get announcements for student
+    public function studentAnnouncements($student_id)
+    {
+        return $this->announcementModel->getStudentAnnouncements(
+            $student_id
+        );
+    }
 }
 ?>

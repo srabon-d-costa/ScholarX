@@ -143,5 +143,43 @@ class Announcement
             $id
         ]);
     }
+
+    // Get active announcements for a student
+    public function getStudentAnnouncements($student_id)
+    {
+        $query = "
+            SELECT
+                announcements.*,
+                users.name AS creator_name
+            FROM announcements
+            LEFT JOIN users
+                ON announcements.created_by = users.id
+
+            INNER JOIN users AS student
+                ON student.id = ?
+
+            WHERE announcements.is_active = 1
+
+            AND (
+                announcements.target_role = 'Student'
+                OR announcements.target_role = 'All'
+            )
+
+            AND (
+                announcements.target_department = student.department_id
+                OR announcements.target_department IS NULL
+            )
+
+            ORDER BY announcements.created_at DESC
+        ";
+
+        $stmt = $this->db->prepare($query);
+
+        $stmt->execute([
+            $student_id
+        ]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>
