@@ -4,11 +4,13 @@ session_start();
 
 require_once "../../helpers/auth_check.php";
 require_once "../../controllers/AnnouncementController.php";
+require_once "../../controllers/NotificationController.php";
 
 checkLogin();
 checkRole(4);
 
 $announcement = new AnnouncementController();
+$notification = new NotificationController();
 
 $message = "";
 
@@ -18,7 +20,9 @@ if(isset($_POST['create']))
         ? $_POST['target_department']
         : null;
 
-    $result = $announcement->createAnnouncement(
+
+    // Create announcement
+    $announcementId = $announcement->createAnnouncement(
         $_POST['title'],
         $_POST['content'],
         $_SESSION['user_id'],
@@ -26,8 +30,44 @@ if(isset($_POST['create']))
         $target_department
     );
 
-    if($result)
+
+    if($announcementId)
     {
+        /*
+        |--------------------------------------------------------------------------
+        | Find students who should receive the announcement
+        |--------------------------------------------------------------------------
+        */
+
+        $recipients = $announcement->announcementRecipients(
+            $_POST['target_role'],
+            $target_department
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Create notifications for matching students
+        |--------------------------------------------------------------------------
+        */
+
+        if(!empty($recipients))
+        {
+            $notification->createBulkNotifications(
+                $recipients,
+                "announcement",
+                $announcementId,
+                "New research announcement: " . $_POST['title']
+            );
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Announcement successfully created
+        |--------------------------------------------------------------------------
+        */
+
         header("Location: announcements.php");
         exit();
     }
@@ -44,29 +84,44 @@ if(isset($_POST['create']))
 
 <head>
 
-    <title>Create Announcement - ScholarX</title>
+    <title>
+        Create Announcement - ScholarX
+    </title>
 
 </head>
 
+
 <body>
 
-<h1>Create Announcement</h1>
+
+<h1>
+    Create Announcement
+</h1>
+
 
 <a href="announcements.php">
+
     ← Back to Announcements
+
 </a>
 
+
 <br><br>
+
 
 <?php if($message != ""): ?>
 
 <p>
+
     <?= htmlspecialchars($message); ?>
+
 </p>
 
 <?php endif; ?>
 
+
 <form method="POST">
+
 
     <label>
         Announcement Title
@@ -80,7 +135,9 @@ if(isset($_POST['create']))
         required
     >
 
+
     <br><br>
+
 
     <label>
         Announcement Content
@@ -95,7 +152,9 @@ if(isset($_POST['create']))
         required
     ></textarea>
 
+
     <br><br>
+
 
     <label>
         Target Role
@@ -103,7 +162,10 @@ if(isset($_POST['create']))
 
     <br>
 
-    <select name="target_role" required>
+    <select
+        name="target_role"
+        required
+    >
 
         <option value="All">
             All
@@ -123,7 +185,9 @@ if(isset($_POST['create']))
 
     </select>
 
+
     <br><br>
+
 
     <label>
         Target Department ID
@@ -138,16 +202,22 @@ if(isset($_POST['create']))
         placeholder="Leave empty for all departments"
     >
 
+
     <br><br>
+
 
     <button
         type="submit"
         name="create"
     >
+
         Publish Announcement
+
     </button>
 
+
 </form>
+
 
 </body>
 

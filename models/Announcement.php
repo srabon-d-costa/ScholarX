@@ -12,6 +12,7 @@ class Announcement
         $this->db = $database->connect();
     }
 
+
     // Get all announcements
     public function getAllAnnouncements()
     {
@@ -31,6 +32,7 @@ class Announcement
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
     // Get single announcement
     public function getAnnouncementById($id)
     {
@@ -41,10 +43,13 @@ class Announcement
         ";
 
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$id]);
+        $stmt->execute([
+            $id
+        ]);
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
 
     // Create announcement
     public function createAnnouncement(
@@ -73,14 +78,22 @@ class Announcement
 
         $stmt = $this->db->prepare($query);
 
-        return $stmt->execute([
+        $result = $stmt->execute([
             $title,
             $content,
             $created_by,
             $target_role,
             $target_department
         ]);
+
+        if($result)
+        {
+            return $this->db->lastInsertId();
+        }
+
+        return false;
     }
+
 
     // Update announcement
     public function updateAnnouncement(
@@ -112,8 +125,12 @@ class Announcement
         ]);
     }
 
+
     // Activate / deactivate announcement
-    public function updateStatus($id, $is_active)
+    public function updateStatus(
+        $id,
+        $is_active
+    )
     {
         $query = "
             UPDATE announcements
@@ -129,6 +146,7 @@ class Announcement
         ]);
     }
 
+
     // Delete announcement
     public function deleteAnnouncement($id)
     {
@@ -143,6 +161,7 @@ class Announcement
             $id
         ]);
     }
+
 
     // Get active announcements for a student
     public function getStudentAnnouncements($student_id)
@@ -181,5 +200,41 @@ class Announcement
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+
+    // Get students who should receive an announcement
+    public function getAnnouncementRecipients(
+        $target_role,
+        $target_department
+    )
+    {
+        // Currently handling student notifications
+        $query = "
+            SELECT id
+            FROM users
+            WHERE role_id = 2
+        ";
+
+        $params = [];
+
+
+        // Target specific department
+        if(!empty($target_department))
+        {
+            $query .= "
+                AND department_id = ?
+            ";
+
+            $params[] = $target_department;
+        }
+
+
+        $stmt = $this->db->prepare($query);
+
+        $stmt->execute($params);
+
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
 }
+
 ?>

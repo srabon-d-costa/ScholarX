@@ -11,17 +11,22 @@ class AnnouncementController
         $this->announcementModel = new Announcement();
     }
 
+
     // Get all announcements
     public function announcements()
     {
         return $this->announcementModel->getAllAnnouncements();
     }
 
+
     // Get announcement details
     public function announcementDetails($id)
     {
-        return $this->announcementModel->getAnnouncementById($id);
+        return $this->announcementModel->getAnnouncementById(
+            $id
+        );
     }
+
 
     // Create announcement
     public function createAnnouncement(
@@ -41,6 +46,7 @@ class AnnouncementController
         );
     }
 
+
     // Update announcement
     public function updateAnnouncement(
         $id,
@@ -59,8 +65,12 @@ class AnnouncementController
         );
     }
 
+
     // Update active status
-    public function updateStatus($id, $is_active)
+    public function updateStatus(
+        $id,
+        $is_active
+    )
     {
         return $this->announcementModel->updateStatus(
             $id,
@@ -68,11 +78,15 @@ class AnnouncementController
         );
     }
 
+
     // Delete announcement
     public function deleteAnnouncement($id)
     {
-        return $this->announcementModel->deleteAnnouncement($id);
+        return $this->announcementModel->deleteAnnouncement(
+            $id
+        );
     }
+
 
     // Get announcements for student
     public function studentAnnouncements($student_id)
@@ -81,5 +95,19 @@ class AnnouncementController
             $student_id
         );
     }
+
+
+    // Get students who should receive an announcement
+    public function announcementRecipients(
+        $target_role,
+        $target_department
+    )
+    {
+        return $this->announcementModel->getAnnouncementRecipients(
+            $target_role,
+            $target_department
+        );
+    }
 }
+
 ?>
