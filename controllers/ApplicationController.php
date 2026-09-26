@@ -2,17 +2,21 @@
 
 require_once __DIR__ . "/../models/Application.php";
 require_once __DIR__ . "/../controllers/NotificationController.php";
+require_once __DIR__ . "/../controllers/ActivityLogController.php";
+
 
 class ApplicationController
 {
     private $applicationModel;
     private $notification;
+    private $activityLog;
 
 
     public function __construct()
     {
         $this->applicationModel = new Application();
         $this->notification = new NotificationController();
+        $this->activityLog = new ActivityLogController();
     }
 
 
@@ -48,6 +52,7 @@ class ApplicationController
         {
             $supervisor_id = $opportunity['supervisor_id'];
 
+
             $student_name = $this->applicationModel->getStudentName(
                 $student_id
             );
@@ -63,6 +68,13 @@ class ApplicationController
                 $opportunity['title']
             );
         }
+
+
+        // Create activity log
+        $this->activityLog->log(
+            $student_id,
+            "Applied for research opportunity ID: " . $opportunity_id
+        );
 
 
         return $application_id;

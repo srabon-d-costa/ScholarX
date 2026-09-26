@@ -1,14 +1,19 @@
 <?php
 
 require_once __DIR__ . "/../models/Announcement.php";
+require_once __DIR__ . "/../controllers/ActivityLogController.php";
+
 
 class AnnouncementController
 {
     private $announcementModel;
+    private $activityLog;
+
 
     public function __construct()
     {
         $this->announcementModel = new Announcement();
+        $this->activityLog = new ActivityLogController();
     }
 
 
@@ -22,9 +27,7 @@ class AnnouncementController
     // Get announcement details
     public function announcementDetails($id)
     {
-        return $this->announcementModel->getAnnouncementById(
-            $id
-        );
+        return $this->announcementModel->getAnnouncementById($id);
     }
 
 
@@ -37,13 +40,26 @@ class AnnouncementController
         $target_department
     )
     {
-        return $this->announcementModel->createAnnouncement(
+        $result = $this->announcementModel->createAnnouncement(
             $title,
             $content,
             $created_by,
             $target_role,
             $target_department
         );
+
+
+        // Create activity log after successful announcement
+        if($result)
+        {
+            $this->activityLog->log(
+                $created_by,
+                "Created announcement: " . $title
+            );
+        }
+
+
+        return $result;
     }
 
 
@@ -67,10 +83,7 @@ class AnnouncementController
 
 
     // Update active status
-    public function updateStatus(
-        $id,
-        $is_active
-    )
+    public function updateStatus($id, $is_active)
     {
         return $this->announcementModel->updateStatus(
             $id,
@@ -82,9 +95,7 @@ class AnnouncementController
     // Delete announcement
     public function deleteAnnouncement($id)
     {
-        return $this->announcementModel->deleteAnnouncement(
-            $id
-        );
+        return $this->announcementModel->deleteAnnouncement($id);
     }
 
 
@@ -93,19 +104,6 @@ class AnnouncementController
     {
         return $this->announcementModel->getStudentAnnouncements(
             $student_id
-        );
-    }
-
-
-    // Get students who should receive an announcement
-    public function announcementRecipients(
-        $target_role,
-        $target_department
-    )
-    {
-        return $this->announcementModel->getAnnouncementRecipients(
-            $target_role,
-            $target_department
         );
     }
 }

@@ -1,15 +1,21 @@
 <?php
 
 require_once __DIR__ . "/../models/Team.php";
+require_once __DIR__ . "/../controllers/ActivityLogController.php";
+
 
 class TeamController
 {
     private $teamModel;
+    private $activityLog;
+
 
     public function __construct()
     {
         $this->teamModel = new Team();
+        $this->activityLog = new ActivityLogController();
     }
+
 
     // Create research team
     public function createTeam(
@@ -18,12 +24,26 @@ class TeamController
         $created_by
     )
     {
-        return $this->teamModel->createTeam(
+        $result = $this->teamModel->createTeam(
             $name,
             $description,
             $created_by
         );
+
+
+        // Log successful team creation
+        if($result)
+        {
+            $this->activityLog->log(
+                $created_by,
+                "Created research team: " . $name
+            );
+        }
+
+
+        return $result;
     }
+
 
     // Get teams created by supervisor
     public function teams($created_by)
@@ -33,6 +53,7 @@ class TeamController
         );
     }
 
+
     // Get single team
     public function teamDetails($id)
     {
@@ -41,17 +62,35 @@ class TeamController
         );
     }
 
+
     // Add student member
     public function addMember(
         $team_id,
         $user_id
     )
     {
-        return $this->teamModel->addMember(
+        $result = $this->teamModel->addMember(
             $team_id,
             $user_id
         );
+
+
+        // Log successful member addition
+        if($result)
+        {
+            $this->activityLog->log(
+                $_SESSION['user_id'],
+                "Added user ID " .
+                $user_id .
+                " to research team ID " .
+                $team_id
+            );
+        }
+
+
+        return $result;
     }
+
 
     // Get team members
     public function members($team_id)
@@ -61,13 +100,29 @@ class TeamController
         );
     }
 
+
     // Remove member
     public function removeMember($id)
     {
-        return $this->teamModel->removeMember(
+        $result = $this->teamModel->removeMember(
             $id
         );
+
+
+        // Log successful member removal
+        if($result)
+        {
+            $this->activityLog->log(
+                $_SESSION['user_id'],
+                "Removed team member record ID: " .
+                $id
+            );
+        }
+
+
+        return $result;
     }
+
 
     // Check member
     public function checkMember(
@@ -81,11 +136,13 @@ class TeamController
         );
     }
 
+
     // Get available students
     public function students()
     {
         return $this->teamModel->getStudents();
     }
+
 
     // Get teams belonging to student
     public function studentTeams($student_id)
@@ -95,4 +152,5 @@ class TeamController
         );
     }
 }
+
 ?>

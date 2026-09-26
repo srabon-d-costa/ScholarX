@@ -125,6 +125,11 @@ Manage Users
 </li>
 
 
+<a href="activities.php">
+    Monitor System Activities
+</a>
+
+
 <li>
 Manage Research Opportunities
 </li>

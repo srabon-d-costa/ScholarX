@@ -2,13 +2,16 @@
 
 require_once __DIR__ . "/../config/database.php";
 
+
 class Application
 {
     private $db;
 
+
     public function __construct()
     {
         $database = new Database();
+
         $this->db = $database->connect();
     }
 
@@ -33,7 +36,9 @@ class Application
             )
         ";
 
+
         $stmt = $this->db->prepare($query);
+
 
         $result = $stmt->execute([
             $opportunity_id,
@@ -41,10 +46,12 @@ class Application
             $message
         ]);
 
+
         if($result)
         {
             return $this->db->lastInsertId();
         }
+
 
         return false;
     }
@@ -61,11 +68,14 @@ class Application
             WHERE id = ?
         ";
 
+
         $stmt = $this->db->prepare($query);
+
 
         $stmt->execute([
             $opportunity_id
         ]);
+
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -75,20 +85,27 @@ class Application
     public function getStudentName($student_id)
     {
         $query = "
-            SELECT name
+            SELECT
+                name
             FROM users
             WHERE id = ?
         ";
 
+
         $stmt = $this->db->prepare($query);
+
 
         $stmt->execute([
             $student_id
         ]);
 
+
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        return $result ? $result['name'] : 'A student';
+
+        return $result
+            ? $result['name']
+            : 'A student';
     }
 
 
@@ -105,12 +122,15 @@ class Application
             AND student_id = ?
         ";
 
+
         $stmt = $this->db->prepare($query);
+
 
         $stmt->execute([
             $opportunity_id,
             $student_id
         ]);
+
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -124,18 +144,24 @@ class Application
                 opportunity_applications.*,
                 research_opportunities.title
             FROM opportunity_applications
+
             LEFT JOIN research_opportunities
                 ON opportunity_applications.opportunity_id =
                    research_opportunities.id
+
             WHERE student_id = ?
+
             ORDER BY applied_at DESC
         ";
 
+
         $stmt = $this->db->prepare($query);
+
 
         $stmt->execute([
             $student_id
         ]);
+
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -149,23 +175,61 @@ class Application
                 opportunity_applications.*,
                 users.name AS student_name,
                 research_opportunities.title AS research_title
+
             FROM opportunity_applications
+
             LEFT JOIN users
                 ON opportunity_applications.student_id = users.id
+
             LEFT JOIN research_opportunities
                 ON opportunity_applications.opportunity_id =
                    research_opportunities.id
+
             WHERE research_opportunities.supervisor_id = ?
+
             ORDER BY opportunity_applications.applied_at DESC
         ";
 
+
         $stmt = $this->db->prepare($query);
+
 
         $stmt->execute([
             $supervisor_id
         ]);
 
+
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    // Get single application details
+    public function getApplicationById($application_id)
+    {
+        $query = "
+            SELECT
+                opportunity_applications.*,
+                research_opportunities.title AS research_title
+
+            FROM opportunity_applications
+
+            LEFT JOIN research_opportunities
+                ON opportunity_applications.opportunity_id =
+                   research_opportunities.id
+
+            WHERE opportunity_applications.id = ?
+        ";
+
+
+        $stmt = $this->db->prepare($query);
+
+
+        $stmt->execute([
+            $application_id
+        ]);
+
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
 
@@ -183,7 +247,9 @@ class Application
             WHERE id = ?
         ";
 
+
         $stmt = $this->db->prepare($query);
+
 
         return $stmt->execute([
             $status,

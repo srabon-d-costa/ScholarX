@@ -1,23 +1,20 @@
 <?php
 
 require_once __DIR__ . "/../models/Research.php";
+require_once __DIR__ . "/../controllers/ActivityLogController.php";
 
 
 class ResearchController
 {
-
     private $researchModel;
-
+    private $activityLog;
 
 
     public function __construct()
     {
         $this->researchModel = new Research();
+        $this->activityLog = new ActivityLogController();
     }
-
-
-
-
 
 
     // Get all research opportunities
@@ -27,20 +24,11 @@ class ResearchController
     }
 
 
-
-
-
-
     // Get single opportunity details
     public function opportunityDetails($id)
     {
         return $this->researchModel->getOpportunityById($id);
     }
-
-
-
-
-
 
 
     // Create new opportunity
@@ -55,8 +43,7 @@ class ResearchController
         $deadline
     )
     {
-
-        return $this->researchModel->createOpportunity(
+        $result = $this->researchModel->createOpportunity(
             $title,
             $description,
             $category_id,
@@ -67,12 +54,18 @@ class ResearchController
             $deadline
         );
 
+
+        if($result)
+        {
+            $this->activityLog->log(
+                $supervisor_id,
+                "Created research opportunity: " . $title
+            );
+        }
+
+
+        return $result;
     }
-
-
-
-
-
 
 
     // Update opportunity
@@ -88,8 +81,7 @@ class ResearchController
         $status
     )
     {
-
-        return $this->researchModel->updateOpportunity(
+        $result = $this->researchModel->updateOpportunity(
             $id,
             $title,
             $description,
@@ -101,24 +93,40 @@ class ResearchController
             $status
         );
 
+
+        if($result)
+        {
+            $this->activityLog->log(
+                $_SESSION['user_id'],
+                "Updated research opportunity ID: " . $id .
+                " - " . $title
+            );
+        }
+
+
+        return $result;
     }
-
-
-
-
-
 
 
     // Delete opportunity
     public function deleteOpportunity($id)
     {
-        return $this->researchModel->deleteOpportunity($id);
+        $result = $this->researchModel->deleteOpportunity(
+            $id
+        );
+
+
+        if($result)
+        {
+            $this->activityLog->log(
+                $_SESSION['user_id'],
+                "Deleted research opportunity ID: " . $id
+            );
+        }
+
+
+        return $result;
     }
-
-
-
-
-
 
 
     // Get research categories
@@ -128,18 +136,11 @@ class ResearchController
     }
 
 
-
-
-
-
-
     // Get departments
     public function departments()
     {
         return $this->researchModel->getDepartments();
     }
-
-
 }
 
 ?>

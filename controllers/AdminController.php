@@ -1,16 +1,19 @@
 <?php
 
 require_once __DIR__ . "/../models/Admin.php";
+require_once __DIR__ . "/../controllers/ActivityLogController.php";
 
 
 class AdminController
 {
     private $adminModel;
+    private $activityLog;
 
 
     public function __construct()
     {
         $this->adminModel = new Admin();
+        $this->activityLog = new ActivityLogController();
     }
 
 
@@ -71,10 +74,25 @@ class AdminController
     // Change user status
     public function changeStatus($user_id, $status)
     {
-        return $this->adminModel->updateUserStatus(
+        $result = $this->adminModel->updateUserStatus(
             $user_id,
             $status
         );
+
+
+        if($result)
+        {
+            $this->activityLog->log(
+                $_SESSION['user_id'],
+                "Changed user ID " .
+                $user_id .
+                " status to " .
+                $status
+            );
+        }
+
+
+        return $result;
     }
 
 
@@ -83,7 +101,21 @@ class AdminController
     // Delete user
     public function deleteUser($user_id)
     {
-        return $this->adminModel->deleteUser($user_id);
+        $result = $this->adminModel->deleteUser(
+            $user_id
+        );
+
+
+        if($result)
+        {
+            $this->activityLog->log(
+                $_SESSION['user_id'],
+                "Deleted user ID: " . $user_id
+            );
+        }
+
+
+        return $result;
     }
 
 
@@ -108,7 +140,7 @@ class AdminController
         $status
     )
     {
-        return $this->adminModel->updateUser(
+        $result = $this->adminModel->updateUser(
             $id,
             $name,
             $email,
@@ -116,7 +148,25 @@ class AdminController
             $department_id,
             $status
         );
+
+
+        if($result)
+        {
+            $this->activityLog->log(
+                $_SESSION['user_id'],
+                "Updated user ID: " .
+                $id .
+                " - " .
+                $name
+            );
+        }
+
+
+        return $result;
     }
+
+
+
 
     // Get all departments
     public function departments()
