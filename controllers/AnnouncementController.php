@@ -49,7 +49,6 @@ class AnnouncementController
         );
 
 
-        // Create activity log after successful announcement
         if($result)
         {
             $this->activityLog->log(
@@ -72,30 +71,75 @@ class AnnouncementController
         $target_department
     )
     {
-        return $this->announcementModel->updateAnnouncement(
+        $result = $this->announcementModel->updateAnnouncement(
             $id,
             $title,
             $content,
             $target_role,
             $target_department
         );
+
+
+        if($result && isset($_SESSION['user_id']))
+        {
+            $this->activityLog->log(
+                $_SESSION['user_id'],
+                "Updated announcement ID: " . $id
+            );
+        }
+
+
+        return $result;
     }
 
 
-    // Update active status
-    public function updateStatus($id, $is_active)
+    // Activate / deactivate announcement
+    public function updateStatus(
+        $id,
+        $is_active
+    )
     {
-        return $this->announcementModel->updateStatus(
+        $result = $this->announcementModel->updateStatus(
             $id,
             $is_active
         );
+
+
+        if($result && isset($_SESSION['user_id']))
+        {
+            $status = $is_active ? "activated" : "deactivated";
+
+            $this->activityLog->log(
+                $_SESSION['user_id'],
+                ucfirst($status) .
+                " announcement ID: " .
+                $id
+            );
+        }
+
+
+        return $result;
     }
 
 
     // Delete announcement
     public function deleteAnnouncement($id)
     {
-        return $this->announcementModel->deleteAnnouncement($id);
+        $result = $this->announcementModel->deleteAnnouncement(
+            $id
+        );
+
+
+        if($result && isset($_SESSION['user_id']))
+        {
+            $this->activityLog->log(
+                $_SESSION['user_id'],
+                "Deleted announcement ID: " . $id
+            );
+        }
+
+
+        return $result;
     }
 
 

@@ -55,10 +55,10 @@ class ResearchController
         );
 
 
-        if($result)
+        if($result && isset($_SESSION['user_id']))
         {
             $this->activityLog->log(
-                $supervisor_id,
+                $_SESSION['user_id'],
                 "Created research opportunity: " . $title
             );
         }
@@ -94,12 +94,11 @@ class ResearchController
         );
 
 
-        if($result)
+        if($result && isset($_SESSION['user_id']))
         {
             $this->activityLog->log(
                 $_SESSION['user_id'],
-                "Updated research opportunity ID: " . $id .
-                " - " . $title
+                "Updated research opportunity ID: " . $id
             );
         }
 
@@ -116,7 +115,7 @@ class ResearchController
         );
 
 
-        if($result)
+        if($result && isset($_SESSION['user_id']))
         {
             $this->activityLog->log(
                 $_SESSION['user_id'],

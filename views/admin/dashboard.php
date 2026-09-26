@@ -11,7 +11,6 @@ checkLogin();
 checkRole(1);
 
 
-
 $adminController = new AdminController();
 
 $data = $adminController->dashboard();
@@ -24,7 +23,9 @@ $data = $adminController->dashboard();
 
 <head>
 
-<title>Admin Dashboard - ScholarX</title>
+    <title>
+        Admin Dashboard - ScholarX
+    </title>
 
 </head>
 
@@ -33,120 +34,108 @@ $data = $adminController->dashboard();
 
 
 <h1>
-ScholarX Admin Dashboard
+    ScholarX Admin Dashboard
 </h1>
 
 
 <p>
-Welcome, 
-<?= $_SESSION['name']; ?>
+    Welcome,
+    <?= htmlspecialchars($_SESSION['name']); ?>
 </p>
-
 
 
 <hr>
 
 
 <h2>
-System Overview
+    System Overview
 </h2>
-
 
 
 <table border="1" cellpadding="15">
 
+    <tr>
 
-<tr>
+        <th>
+            Total Users
+        </th>
 
-<th>
-Total Users
-</th>
+        <th>
+            Students
+        </th>
 
-<th>
-Students
-</th>
+        <th>
+            Supervisors
+        </th>
 
-<th>
-Supervisors
-</th>
+        <th>
+            Coordinators
+        </th>
 
-<th>
-Coordinators
-</th>
-
-</tr>
-
+    </tr>
 
 
-<tr>
+    <tr>
 
-<td>
-<?= $data['totalUsers']; ?>
-</td>
+        <td>
+            <?= htmlspecialchars($data['totalUsers']); ?>
+        </td>
 
+        <td>
+            <?= htmlspecialchars($data['totalStudents']); ?>
+        </td>
 
-<td>
-<?= $data['totalStudents']; ?>
-</td>
+        <td>
+            <?= htmlspecialchars($data['totalSupervisors']); ?>
+        </td>
 
+        <td>
+            <?= htmlspecialchars($data['totalCoordinators']); ?>
+        </td>
 
-<td>
-<?= $data['totalSupervisors']; ?>
-</td>
-
-
-<td>
-<?= $data['totalCoordinators']; ?>
-</td>
-
-
-</tr>
-
+    </tr>
 
 </table>
-
 
 
 <br><br>
 
 
-
 <h2>
-Admin Actions
+    Admin Actions
 </h2>
 
 
 <ul>
 
-<li>
-<a href="users.php">
-Manage Users
-</a>
-</li>
+    <li>
+        <a href="users.php">
+            Manage Users
+        </a>
+    </li>
 
 
-<a href="activities.php">
-    Monitor System Activities
-</a>
+    <li>
+        <a href="activities.php">
+            Monitor System Activities
+        </a>
+    </li>
 
 
-<li>
-Manage Research Opportunities
-</li>
+    <li>
+        <a href="research.php">
+            Manage Research Opportunities
+        </a>
+    </li>
 
 
-<li>
-Manage Announcements
-</li>
-
-
-<li>
-View Activity Logs
-</li>
-
+    <li>
+        <a href="announcements.php">
+            Manage Announcements
+        </a>
+    </li>
 
 </ul>
-
 
 
 </body>
