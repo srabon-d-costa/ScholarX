@@ -1,6 +1,5 @@
 <?php
 
-session_start();
 
 require_once "../../helpers/auth_check.php";
 
@@ -43,6 +42,12 @@ checkRole(4);
     <li>
         <a href="announcements.php">
             Publish Announcements
+        </a>
+    </li>
+
+    <li>
+        <a href="../auth/logout.php">
+            Logout
         </a>
     </li>
 

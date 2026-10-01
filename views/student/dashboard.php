@@ -1,6 +1,5 @@
 <?php
 
-session_start();
 
 require_once "../../helpers/auth_check.php";
 require_once "../../controllers/NotificationController.php";
@@ -135,6 +134,12 @@ $unreadCount = $notification->unreadCount($user_id);
 
         </a>
 
+    </li>
+
+    <li>
+        <a href="../auth/logout.php">
+            Logout
+        </a>
     </li>
 
 

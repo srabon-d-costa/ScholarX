@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 require_once "../../helpers/auth_check.php";
 require_once "../../controllers/AdminController.php";
 
@@ -132,6 +130,12 @@ $data = $adminController->dashboard();
     <li>
         <a href="announcements.php">
             Manage Announcements
+        </a>
+    </li>
+
+    <li>
+        <a href="../auth/logout.php">
+            Logout
         </a>
     </li>
 

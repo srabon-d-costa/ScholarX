@@ -1,6 +1,5 @@
 <?php
 
-session_start();
 
 require_once "../../helpers/auth_check.php";
 require_once "../../controllers/StudentController.php";

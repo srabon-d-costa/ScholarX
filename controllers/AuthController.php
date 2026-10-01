@@ -2,6 +2,7 @@
 
 require_once __DIR__ . "/../models/User.php";
 require_once __DIR__ . "/../controllers/ActivityLogController.php";
+require_once __DIR__ . "/../helpers/session.php";
 
 
 class AuthController
@@ -122,41 +123,52 @@ class AuthController
         }
 
 
-        if(password_verify(
+        if(!password_verify(
             $password,
             $user['password']
         ))
         {
-            session_start();
-
-
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['name'] = $user['name'];
-            $_SESSION['role_id'] = $user['role_id'];
-
-
-            // Log successful login
-            $this->activityLog->log(
-                $user['id'],
-                "User logged in"
-            );
-
-
-            return true;
+            return "Invalid password";
         }
 
 
-        return "Invalid password";
+        /*
+        |--------------------------------------------------------------------------
+        | Session Security
+        |--------------------------------------------------------------------------
+        */
+
+        // Generate a new session ID after successful authentication
+        session_regenerate_id(true);
+
+
+        // Store authenticated user information
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['name'] = $user['name'];
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['role_id'] = $user['role_id'];
+
+
+        // Log successful login
+        $this->activityLog->log(
+            $user['id'],
+            "User logged in"
+        );
+
+
+        return true;
     }
 
 
     // Logout User
     public function logout()
     {
-        session_start();
+        /*
+        |--------------------------------------------------------------------------
+        | Get current user
+        |--------------------------------------------------------------------------
+        */
 
-
-        // Save user ID before destroying session
         $user_id = $_SESSION['user_id'] ?? null;
 
 
@@ -170,11 +182,58 @@ class AuthController
         }
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | Remove Session Data
+        |--------------------------------------------------------------------------
+        */
+
+        $_SESSION = [];
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Remove Session Cookie
+        |--------------------------------------------------------------------------
+        */
+
+        if(ini_get("session.use_cookies"))
+        {
+            $params = session_get_cookie_params();
+
+
+            setcookie(
+                session_name(),
+                '',
+                [
+                    'expires' => time() - 42000,
+                    'path' => $params['path'],
+                    'domain' => $params['domain'],
+                    'secure' => $params['secure'],
+                    'httponly' => $params['httponly'],
+                    'samesite' => $params['samesite'] ?? 'Lax'
+                ]
+            );
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Destroy Session
+        |--------------------------------------------------------------------------
+        */
+
         session_destroy();
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | Redirect to Login
+        |--------------------------------------------------------------------------
+        */
+
         header(
-            "Location: ../views/auth/login.php"
+            "Location: /ScholarX/views/auth/login.php"
         );
 
         exit();
