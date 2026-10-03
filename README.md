@@ -1,6 +1,9 @@
 <div align="center">
 
-<img src="assets/images/VarsityScholar-mark.svg" alt="VarsityScholar logo" width="88" height="88">
+<img src="./assets/images/varsityscholar-mark.svg"
+     alt="VarsityScholar logo"
+     width="88"
+     height="88">
 
 # VarsityScholar
 
