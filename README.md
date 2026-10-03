@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="assets/images/scholarx-mark.svg" alt="ScholarX logo" width="88" height="88">
+<img src="assets/images/VarsityScholar-mark.svg" alt="VarsityScholar logo" width="88" height="88">
 
-# ScholarX
+# VarsityScholar
 
 ### University Research Collaboration Portal
 
@@ -24,7 +24,7 @@ A role-based platform that brings students, supervisors, coordinators, and admin
 
 ## Overview
 
-ScholarX organizes university research collaboration—from discovering an opportunity and submitting an application to forming teams, reviewing proposals, and tracking project milestones.
+VarsityScholar organizes university research collaboration—from discovering an opportunity and submitting an application to forming teams, reviewing proposals, and tracking project milestones.
 
 Each user role has a dedicated workspace. Students find research opportunities and follow their work; supervisors manage teams and research delivery; coordinators oversee departments and projects; administrators manage accounts and platform activity.
 
@@ -125,23 +125,23 @@ Use a modern browser for the JavaScript-enhanced interface. Exact minimum PHP an
 Clone the repository inside your XAMPP `htdocs` directory:
 
 ```bash
-git clone https://github.com/srabon-d-costa/ScholarX.git ScholarX
-cd ScholarX
+git clone https://github.com/srabon-d-costa/VarsityScholar.git VarsityScholar
+cd VarsityScholar
 ```
 
 Alternatively, download the project ZIP and extract its contents into:
 
 ```text
-C:\xampp\htdocs\ScholarX
+C:\xampp\htdocs\VarsityScholar
 ```
 
-If XAMPP is installed on another drive, use that installation's `htdocs` directory. Keep the application directory named **ScholarX**, because several asset paths and redirects use `/ScholarX/`.
+If XAMPP is installed on another drive, use that installation's `htdocs` directory. Keep the application directory named **VarsityScholar**, because several asset paths and redirects use `/VarsityScholar/`.
 
 ### 3. Import the database
 
-> **Database prerequisite:** The current project package does not include a `.sql` export or an automatic database installer. Obtain the matching ScholarX schema and seed data from the maintainer, or export them from an existing working installation. Creating an empty database alone is not sufficient.
+> **Database prerequisite:** The current project package does not include a `.sql` export or an automatic database installer. Obtain the matching VarsityScholar schema and seed data from the maintainer, or export them from an existing working installation. Creating an empty database alone is not sufficient.
 
-Open [phpMyAdmin](http://localhost/phpmyadmin), create a database named `scholarx` if the supplied export does not create it, and import the matching export.
+Open [phpMyAdmin](http://localhost/phpmyadmin), create a database named `VarsityScholar` if the supplied export does not create it, and import the matching export.
 
 Ensure the imported role IDs match the role table above. The current registration form also expects these department IDs:
 
@@ -159,7 +159,7 @@ Edit the existing properties in `config/database.php`:
 
 ```php
 private $host = "localhost";
-private $db_name = "scholarx";
+private $db_name = "VarsityScholar";
 private $username = "root";
 private $password = "";
 ```
@@ -170,11 +170,11 @@ These are local development defaults. Set the username and password to the crede
 
 Visit:
 
-**[http://localhost/ScholarX/views/auth/login.php](http://localhost/ScholarX/views/auth/login.php)**
+**[http://localhost/VarsityScholar/views/auth/login.php](http://localhost/VarsityScholar/views/auth/login.php)**
 
 Registration is available at:
 
-**[http://localhost/ScholarX/views/auth/register.php](http://localhost/ScholarX/views/auth/register.php)**
+**[http://localhost/VarsityScholar/views/auth/register.php](http://localhost/VarsityScholar/views/auth/register.php)**
 
 The root `index.php` currently displays a development landing page; it is not the application's central router.
 
@@ -186,7 +186,7 @@ For a local demonstration, register your own account and have the database owner
 
 ## Architecture
 
-ScholarX uses an **MVC-style separation**: models contain database operations, controllers coordinate application behavior, and PHP views render the interface. Many view files also handle incoming form requests before rendering. Separate API scripts expose JSON operations.
+VarsityScholar uses an **MVC-style separation**: models contain database operations, controllers coordinate application behavior, and PHP views render the interface. Many view files also handle incoming form requests before rendering. Separate API scripts expose JSON operations.
 
 ```mermaid
 flowchart TD
@@ -223,7 +223,7 @@ The interface uses normal page navigation and form submissions. The presence of 
 | `api/` | Resource-oriented PHP endpoints returning JSON |
 | `assets/css/style.css` | Shared design system and responsive styles |
 | `assets/js/app.js` | Navigation, theme preference, page search, and UI enhancements |
-| `assets/images/` | ScholarX icon and light/dark logo variants |
+| `assets/images/` | VarsityScholar icon and light/dark logo variants |
 
 ## Database Overview
 
@@ -239,11 +239,11 @@ The models reference the following core tables. This is an application-level ove
 
 ## API Overview
 
-API scripts are organized by resource beneath `/ScholarX/api/` and use the existing PHP session for authentication. Requests that modify records use the method required by the endpoint and, where applicable, a JSON request body.
+API scripts are organized by resource beneath `/VarsityScholar/api/` and use the existing PHP session for authentication. Requests that modify records use the method required by the endpoint and, where applicable, a JSON request body.
 
 Representative endpoints:
 
-| Method | Path relative to `/ScholarX/` | Access | Purpose |
+| Method | Path relative to `/VarsityScholar/` | Access | Purpose |
 | --- | --- | --- | --- |
 | `GET` | `api/admin/dashboard.php` | Administrator | User counts by role |
 | `GET` | `api/admin/users.php` | Administrator | List users; supports `search` or `role_id` filtering |
@@ -257,7 +257,7 @@ Representative endpoints:
 For example, after signing in, this read-only request can run in the browser console on the same origin:
 
 ```javascript
-fetch('/ScholarX/api/notifications/count.php', {
+fetch('/VarsityScholar/api/notifications/count.php', {
   credentials: 'same-origin'
 })
   .then(async (response) => {
@@ -333,9 +333,9 @@ A visual preview or successful page render does not establish that database oper
 | Symptom | What to check |
 | --- | --- |
 | Database connection fails | Start MySQL; verify the database name and credentials in `config/database.php` |
-| A table is missing | Import the matching schema and seed data; an empty `scholarx` database is insufficient |
-| Styles or links return 404 | Confirm the project is served from `/ScholarX/` and that `assets/` was copied |
-| The root page does not show login | Open `/ScholarX/views/auth/login.php` directly |
+| A table is missing | Import the matching schema and seed data; an empty `VarsityScholar` database is insufficient |
+| Styles or links return 404 | Confirm the project is served from `/VarsityScholar/` and that `assets/` was copied |
+| The root page does not show login | Open `/VarsityScholar/views/auth/login.php` directly |
 | Role changes do not appear | Sign out and sign in again to refresh session values |
 | The previous design still appears | Hard-refresh with Ctrl+F5 and confirm both CSS and JavaScript were updated |
 | Linux reports that `Admin.php` is missing | The supplied model is named `models/admin.php`, while imports use `models/Admin.php`; align the filename and references before deploying on a case-sensitive filesystem |
@@ -352,11 +352,11 @@ These are development targets, not claims of completed features.
 
 ## Maintainer and Acknowledgment
 
-**Repository:** [srabon-d-costa/ScholarX](https://github.com/srabon-d-costa/ScholarX)
+**Repository:** [srabon-d-costa/VarsityScholar](https://github.com/srabon-d-costa/VarsityScholar)
 
 **GitHub profile:** [@srabon-d-costa](https://github.com/srabon-d-costa)
 
-Documentation organization was informed by [Wahidul Alam Riyad's Library Management System](https://github.com/wahidulalamriyad/full-stack-library-management-system). The descriptions and setup instructions above are specific to ScholarX.
+Documentation organization was informed by [Wahidul Alam Riyad's Library Management System](https://github.com/wahidulalamriyad/full-stack-library-management-system). The descriptions and setup instructions above are specific to VarsityScholar.
 
 **License:** No license file is included in the reviewed project package. The project owner has not specified a license in this README.
 
@@ -364,6 +364,6 @@ Documentation organization was informed by [Wahidul Alam Riyad's Library Managem
 
 <div align="center">
 
-**ScholarX — a space for ideas to become discoveries.**
+**VarsityScholar — a space for ideas to become discoveries.**
 
 </div>
