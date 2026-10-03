@@ -1,0 +1,5 @@
+<?php
+require_once __DIR__ . "/../../helpers/api.php";
+require_once __DIR__ . "/../../models/Team.php";
+apiRequireMethod('POST'); apiRequireRole([3]); $data=apiBody(); apiRequired($data,['team_id','user_id']); $teamId=apiInt($data['team_id'],'team ID'); $userId=apiInt($data['user_id'],'user ID'); $model=new Team(); $team=$model->getTeamById($teamId); if(!$team)jsonResponse(["success"=>false,"message"=>"Team not found"],404); if((int)$team['created_by']!==(int)$_SESSION['user_id'])jsonResponse(["success"=>false,"message"=>"Access denied"],403); if(!apiFindById($model->getStudents(),$userId))jsonResponse(["success"=>false,"message"=>"Only student users can be added to a team"],400); if($model->checkMember($teamId,$userId))jsonResponse(["success"=>false,"message"=>"Student is already a team member"],409); if(!$model->addMember($teamId,$userId))jsonResponse(["success"=>false,"message"=>"Failed to add team member"],500); apiLog((int)$_SESSION['user_id'],'Added user ID '.$userId.' to research team ID '.$teamId); jsonResponse(["success"=>true,"message"=>"Team member added successfully"],201);
+?>

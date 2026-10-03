@@ -101,6 +101,8 @@ if(isset($_POST['delete']))
 Milestone Details - ScholarX
 </title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 
@@ -335,6 +337,8 @@ Delete Milestone
 
 </form>
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

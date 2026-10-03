@@ -1,33 +1,17 @@
 <?php
+require_once __DIR__ . "/../../helpers/api.php";
+require_once __DIR__ . "/../../models/Research.php";
 
-require_once "../../models/Research.php";
-require_once "../../helpers/json_response.php";
+apiRequireMethod('GET');
+apiRequireAuth();
 
+$id = apiInt($_GET['id'] ?? null, 'opportunity ID');
 $research = new Research();
+$item = $research->getOpportunityById($id);
 
-$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-
-if($id === false || $id === null || $id <= 0)
-{
-    jsonResponse([
-        "success" => false,
-        "message" => "Valid opportunity ID is required"
-    ], 400);
+if (!$item) {
+    jsonResponse(["success" => false, "message" => "Research opportunity not found"], 404);
 }
 
-$opportunity = $research->getOpportunityById($id);
-
-if(!$opportunity)
-{
-    jsonResponse([
-        "success" => false,
-        "message" => "Research opportunity not found"
-    ], 404);
-}
-
-jsonResponse([
-    "success" => true,
-    "data" => $opportunity
-]);
-
+jsonResponse(["success" => true, "data" => $item]);
 ?>

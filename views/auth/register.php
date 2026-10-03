@@ -29,6 +29,8 @@ if(isset($_POST['register']))
 
 <title>ScholarX Registration</title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 
@@ -138,6 +140,8 @@ Register
 
 </form>
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

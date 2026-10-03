@@ -71,6 +71,8 @@ if(isset($_POST['create']))
 Create Research Opportunity - ScholarX
 </title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 
@@ -282,6 +284,8 @@ Create Opportunity
 
 </form>
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

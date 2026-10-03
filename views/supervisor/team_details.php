@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 require_once "../../helpers/auth_check.php";
 require_once "../../controllers/TeamController.php";
 
@@ -55,6 +53,8 @@ $members = $team->members($id);
 <title>
 Team Details - ScholarX
 </title>
+
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
 
 </head>
 
@@ -230,6 +230,8 @@ Add Member
 
 
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

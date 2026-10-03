@@ -73,6 +73,8 @@ $unreadCount = $notification->unreadCount(
         My Notifications - ScholarX
     </title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 
@@ -231,6 +233,8 @@ $unreadCount = $notification->unreadCount(
 
 <?php endif; ?>
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

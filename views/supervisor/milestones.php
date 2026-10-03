@@ -48,6 +48,8 @@ $milestones = $milestone->milestones($project_id);
 Research Project Milestones - ScholarX
 </title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 
@@ -212,6 +214,8 @@ No milestones found.
 
 </table>
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

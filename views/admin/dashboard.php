@@ -25,6 +25,8 @@ $data = $adminController->dashboard();
         Admin Dashboard - ScholarX
     </title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 
@@ -141,6 +143,8 @@ $data = $adminController->dashboard();
 
 </ul>
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

@@ -1,0 +1,5 @@
+<?php
+require_once __DIR__ . "/../../helpers/api.php";
+require_once __DIR__ . "/../../models/ResearchProject.php";
+apiRequireMethod('PUT'); apiRequireRole([3]); $id=apiInt($_GET['id']??null,'project ID'); $data=apiBody(); apiRequired($data,['status']); $status=trim($data['status']); if(!in_array($status,['Approved','Active','On Hold','Completed'],true))jsonResponse(["success"=>false,"message"=>"Invalid project status"],400); $model=new ResearchProject(); $project=$model->getProjectById($id); if(!$project)jsonResponse(["success"=>false,"message"=>"Project not found"],404); if((int)$project['supervisor_id']!==(int)$_SESSION['user_id'])jsonResponse(["success"=>false,"message"=>"Access denied"],403); if(!$model->updateStatus($id,$status))jsonResponse(["success"=>false,"message"=>"Failed to update project status"],500); apiLog((int)$_SESSION['user_id'],'Changed research project ID: '.$id.' status to '.$status); jsonResponse(["success"=>true,"message"=>"Project status updated","data"=>["id"=>$id,"status"=>$status]]);
+?>

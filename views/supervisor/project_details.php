@@ -64,6 +64,8 @@ if ($projectData['progress'] != $calculatedProgress) {
 
     <title>Project Details - ScholarX</title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 <body>
@@ -185,6 +187,8 @@ if ($projectData['progress'] != $calculatedProgress) {
         Manage Milestones
     </button>
 </a>
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

@@ -51,6 +51,8 @@ if(!$opportunity)
 View Research Opportunity
 </title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 
@@ -205,6 +207,8 @@ Posted Date
 </table>
 
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

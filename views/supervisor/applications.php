@@ -34,6 +34,8 @@ $applications = $application->applications(
 Student Applications - ScholarX
 </title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 
@@ -169,6 +171,8 @@ Completed
 </table>
 
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

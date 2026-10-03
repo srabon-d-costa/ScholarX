@@ -31,6 +31,8 @@ $unreadCount = $notification->unreadCount($user_id);
 Supervisor Dashboard
 </title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 
@@ -143,6 +145,8 @@ Review Research Proposals
 
 </ul>
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

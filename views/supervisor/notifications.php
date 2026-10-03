@@ -64,6 +64,8 @@ $unreadCount = $notification->unreadCount(
 Supervisor Notifications - ScholarX
 </title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 
@@ -236,6 +238,8 @@ No notifications available.
 
 <?php endif; ?>
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

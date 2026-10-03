@@ -48,6 +48,8 @@ if(!$opportunity)
 Research Opportunity Details - ScholarX
 </title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 
@@ -183,6 +185,8 @@ Apply For Project
 
 </a>
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

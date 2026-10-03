@@ -59,6 +59,8 @@ if(isset($_POST['create']))
 Create Research Milestone - ScholarX
 </title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 <body>
@@ -149,6 +151,8 @@ Create Milestone
 
 </form>
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

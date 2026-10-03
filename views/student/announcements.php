@@ -18,6 +18,8 @@ $announcements = $announcement->studentAnnouncements(
 
 <head>
     <title>Announcements - ScholarX</title>
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 <body>
@@ -74,6 +76,8 @@ $announcements = $announcement->studentAnnouncements(
 </p>
 
 <?php endif; ?>
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

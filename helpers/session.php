@@ -15,6 +15,9 @@ if (session_status() === PHP_SESSION_NONE)
     // Reject uninitialized session IDs
     ini_set('session.use_strict_mode', '1');
 
+    // Never allow session IDs to be propagated through URLs
+    ini_set('session.use_trans_sid', '0');
+
     // Configure secure session cookie
     session_set_cookie_params([
         'lifetime' => 0,

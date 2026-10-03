@@ -86,6 +86,8 @@ if(isset($_POST['create']))
         Create Announcement - ScholarX
     </title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 
@@ -216,6 +218,8 @@ if(isset($_POST['create']))
 
 </form>
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

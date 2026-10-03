@@ -33,6 +33,8 @@ $unreadCount = $notification->unreadCount($user_id);
         Student Dashboard - ScholarX
     </title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 
@@ -145,6 +147,8 @@ $unreadCount = $notification->unreadCount($user_id);
 
 </ul>
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

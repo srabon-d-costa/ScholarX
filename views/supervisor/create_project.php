@@ -49,6 +49,8 @@ if(isset($_POST['create']))
 
 <title>Create Research Project - ScholarX</title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 <body>
@@ -160,6 +162,8 @@ Create Project
 </button>
 
 </form>
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

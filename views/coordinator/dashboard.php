@@ -13,6 +13,8 @@ checkRole(4);
 
 <head>
     <title>Coordinator Dashboard - ScholarX</title>
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 <body>
@@ -52,6 +54,8 @@ checkRole(4);
     </li>
 
 </ul>
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

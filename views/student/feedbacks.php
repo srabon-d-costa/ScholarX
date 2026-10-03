@@ -22,6 +22,8 @@ $feedbacks = $feedback->studentFeedback(
 
     <title>My Feedback - ScholarX</title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 <body>
@@ -90,6 +92,8 @@ $feedbacks = $feedback->studentFeedback(
 </p>
 
 <?php endif; ?>
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

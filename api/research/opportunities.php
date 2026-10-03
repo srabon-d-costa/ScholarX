@@ -1,16 +1,16 @@
 <?php
+require_once __DIR__ . "/../../helpers/api.php";
+require_once __DIR__ . "/../../models/Research.php";
 
-require_once "../../models/Research.php";
-require_once "../../helpers/json_response.php";
+apiRequireMethod('GET');
+apiRequireAuth();
 
 $research = new Research();
-
-$opportunities = $research->getAllOpportunities();
+$data = $research->getAllOpportunities();
 
 jsonResponse([
     "success" => true,
-    "count" => count($opportunities),
-    "data" => $opportunities
+    "count" => count($data),
+    "data" => $data
 ]);
-
 ?>

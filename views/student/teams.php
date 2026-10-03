@@ -22,6 +22,8 @@ $teams = $teamController->studentTeams($student_id);
 
     <title>My Research Teams - ScholarX</title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 <body>
@@ -130,6 +132,8 @@ $teams = $teamController->studentTeams($student_id);
     </p>
 
 <?php endif; ?>
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

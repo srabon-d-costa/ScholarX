@@ -24,6 +24,8 @@ $activities = $activity->activities();
 System Activities - ScholarX
 </title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 
@@ -135,6 +137,8 @@ No activity logs found.
 
 <?php endif; ?>
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

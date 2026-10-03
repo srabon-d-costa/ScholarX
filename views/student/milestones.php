@@ -24,6 +24,8 @@ $projects = $projectController->studentProjects($student_id);
 
     <title>Research Progress - ScholarX</title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 <body>
@@ -161,6 +163,8 @@ $projects = $projectController->studentProjects($student_id);
     </p>
 
 <?php endif; ?>
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

@@ -55,6 +55,8 @@ $opportunities = $researchController->opportunities();
         Manage Research Opportunities - ScholarX
     </title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 
@@ -239,6 +241,8 @@ $opportunities = $researchController->opportunities();
 
 <?php endif; ?>
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

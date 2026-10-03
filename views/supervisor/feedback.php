@@ -77,6 +77,8 @@ $feedbacks = $feedbackController->supervisorFeedback(
 
     <title>Give Feedback - ScholarX</title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 <body>
@@ -278,6 +280,8 @@ $feedbacks = $feedbackController->supervisorFeedback(
 
 <?php endif; ?>
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

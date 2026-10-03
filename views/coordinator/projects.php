@@ -20,6 +20,8 @@ $projects = $projectController->allProjects();
 
     <title>Monitor Research Projects - ScholarX</title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 <body>
@@ -109,6 +111,8 @@ $projects = $projectController->allProjects();
     <?php endif; ?>
 
 </table>
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

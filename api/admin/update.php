@@ -1,0 +1,5 @@
+<?php
+require_once __DIR__ . "/../../helpers/api.php";
+require_once __DIR__ . "/../../models/Admin.php";
+apiRequireMethod('PUT'); apiRequireRole([1]); $id=apiInt($_GET['id']??null,'user ID'); $data=apiBody(); apiRequired($data,['name','email','role_id','department_id','status']); $name=trim($data['name']); $email=trim($data['email']); $roleId=apiInt($data['role_id'],'role ID'); $departmentId=apiInt($data['department_id'],'department ID'); $status=trim($data['status']); if($name===''||!filter_var($email,FILTER_VALIDATE_EMAIL))jsonResponse(["success"=>false,"message"=>"Valid name and email are required"],400); if(!in_array($status,['Active','Inactive'],true))jsonResponse(["success"=>false,"message"=>"Invalid user status"],400); $model=new Admin(); if(!$model->getUserById($id))jsonResponse(["success"=>false,"message"=>"User not found"],404); if(!$model->updateUser($id,$name,$email,$roleId,$departmentId,$status))jsonResponse(["success"=>false,"message"=>"Failed to update user"],500); apiLog((int)$_SESSION['user_id'],'Updated user ID: '.$id.' - '.$name); jsonResponse(["success"=>true,"message"=>"User updated successfully","data"=>["id"=>$id]]);
+?>

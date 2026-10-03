@@ -9,9 +9,10 @@ $pageTitle = "ScholarX";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title><?= $pageTitle ?></title>
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
 </head>
 
-<body>
+<body class="sx-landing">
 
     <h1>ScholarX</h1>
 

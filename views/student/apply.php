@@ -101,6 +101,8 @@ if(isset($_POST['apply']))
 Apply Research Opportunity - ScholarX
 </title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 
@@ -195,6 +197,8 @@ Submit Application
 </form>
 
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

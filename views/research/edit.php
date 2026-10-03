@@ -79,6 +79,8 @@ if(isset($_POST['update']))
 Edit Research Opportunity
 </title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 
@@ -278,6 +280,8 @@ Update Opportunity
 
 </form>
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

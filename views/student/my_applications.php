@@ -33,6 +33,8 @@ $applications = $application->myApplications(
 My Applications - ScholarX
 </title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 
@@ -132,6 +134,8 @@ Applied Date
 </table>
 
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

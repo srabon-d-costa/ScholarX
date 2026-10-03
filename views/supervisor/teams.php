@@ -20,6 +20,8 @@ $teams = $teamController->teams($supervisor_id);
 
 <head>
     <title>Research Teams - ScholarX</title>
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 <body>
@@ -93,6 +95,8 @@ $teams = $teamController->teams($supervisor_id);
 <?php endif; ?>
 
 </table>
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

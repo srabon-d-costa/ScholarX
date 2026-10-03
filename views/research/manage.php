@@ -30,6 +30,8 @@ $opportunities = $research->opportunities();
 Manage Research Opportunities
 </title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 
@@ -165,6 +167,8 @@ Delete
 </table>
 
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

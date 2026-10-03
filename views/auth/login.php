@@ -55,6 +55,8 @@ if(isset($_POST['login']))
 
 <title>ScholarX Login</title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 <body>
@@ -94,6 +96,8 @@ Login
 </p>
 
 </form>
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

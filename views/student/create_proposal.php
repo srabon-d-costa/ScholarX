@@ -80,6 +80,8 @@ if(isset($_POST['submit']))
 Submit Research Proposal - ScholarX
 </title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 
@@ -262,6 +264,8 @@ Submit Proposal
 </form>
 
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 

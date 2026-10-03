@@ -82,6 +82,8 @@ $announcements = $announcementController->announcements();
         Manage Announcements - ScholarX
     </title>
 
+    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+
 </head>
 
 
@@ -316,6 +318,8 @@ $announcements = $announcementController->announcements();
 
 <?php endif; ?>
 
+
+    <script src="/ScholarX/assets/js/app.js"></script>
 
 </body>
 
