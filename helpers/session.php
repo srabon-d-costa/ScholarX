@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| ScholarX Secure Session Configuration
+| VarsityScholar Secure Session Configuration
 |--------------------------------------------------------------------------
 */
 

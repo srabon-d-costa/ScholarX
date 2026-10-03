@@ -65,13 +65,13 @@ if(isset($_POST['create']))
 <html>
 
 
-<head>
+<head><link rel="icon" type="image/svg+xml" href="/VarsityScholar/assets/images/favicon.svg"><link rel="icon" type="image/svg+xml" href="/VarsityScholar/assets/images/favicon.svg">
 
 <title>
-Create Research Opportunity - ScholarX
+Create Research Opportunity - VarsityScholar
 </title>
 
-    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+    <link rel="stylesheet" href="/VarsityScholar/assets/css/style.css">
 
 </head>
 
@@ -285,7 +285,7 @@ Create Opportunity
 </form>
 
 
-    <script src="/ScholarX/assets/js/app.js"></script>
+    <script src="/VarsityScholar/assets/js/app.js"></script>
 
 </body>
 

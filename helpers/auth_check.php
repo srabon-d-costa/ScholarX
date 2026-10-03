@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| ScholarX Authentication & Authorization
+| VarsityScholar Authentication & Authorization
 |--------------------------------------------------------------------------
 */
 

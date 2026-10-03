@@ -1,24 +1,24 @@
 <?php
-$pageTitle = "ScholarX";
+$pageTitle = "VarsityScholar";
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><link rel="icon" type="image/svg+xml" href="/VarsityScholar/assets/images/favicon.svg"><link rel="icon" type="image/svg+xml" href="/VarsityScholar/assets/images/favicon.svg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title><?= $pageTitle ?></title>
-    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+    <link rel="stylesheet" href="/VarsityScholar/assets/css/style.css">
 </head>
 
 <body class="sx-landing">
 
-    <h1>ScholarX</h1>
+    <h1>VarsityScholar</h1>
 
     <h2>University Research Collaboration Portal</h2>
 
-    <p>ScholarX development environment is working successfully.</p>
+    <p>VarsityScholar development environment is working successfully.</p>
 
 </body>
 </html>

@@ -15,7 +15,7 @@ $data = $adminController->dashboard();
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head><link rel="icon" type="image/svg+xml" href="/VarsityScholar/assets/images/favicon.svg"><link rel="icon" type="image/svg+xml" href="/VarsityScholar/assets/images/favicon.svg">
 
     <meta charset="UTF-8">
 
@@ -24,11 +24,11 @@ $data = $adminController->dashboard();
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Admin Dashboard - ScholarX</title>
+    <title>Admin Dashboard - VarsityScholar</title>
 
     <link
         rel="stylesheet"
-        href="/ScholarX/assets/css/style.css"
+        href="/VarsityScholar/assets/css/style.css"
     >
 
 </head>
@@ -56,7 +56,7 @@ $data = $adminController->dashboard();
 
             <p>
                 Manage users, research opportunities and system
-                activities from your ScholarX workspace.
+                activities from your VarsityScholar workspace.
             </p>
 
         </div>
@@ -97,7 +97,7 @@ $data = $adminController->dashboard();
             </div>
 
             <span class="sx-section-description">
-                Current ScholarX user distribution
+                Current VarsityScholar user distribution
             </span>
 
         </div>
@@ -413,7 +413,7 @@ $data = $adminController->dashboard();
 
                     <p>
                         View, search, activate and manage
-                        registered ScholarX users.
+                        registered VarsityScholar users.
                     </p>
 
                 </div>
@@ -556,7 +556,7 @@ $data = $adminController->dashboard();
 
                     <p>
                         Publish and manage announcements
-                        for the ScholarX community.
+                        for the VarsityScholar community.
                     </p>
 
                 </div>
@@ -591,7 +591,7 @@ $data = $adminController->dashboard();
         <div>
 
             <span class="sx-section-label">
-                SCHOLARX ADMINISTRATION
+                VarsityScholar ADMINISTRATION
             </span>
 
             <h3>
@@ -600,7 +600,7 @@ $data = $adminController->dashboard();
 
             <p>
                 Use the navigation panel or quick actions above
-                to manage the ScholarX research ecosystem.
+                to manage the VarsityScholar research ecosystem.
             </p>
 
         </div>
@@ -622,7 +622,7 @@ $data = $adminController->dashboard();
 
 
 
-    <script src="/ScholarX/assets/js/app.js"></script>
+    <script src="/VarsityScholar/assets/js/app.js"></script>
 
 </body>
 

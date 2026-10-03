@@ -72,11 +72,11 @@ if(isset($_POST['update']))
 <!DOCTYPE html>
 <html>
 
-<head>
+<head><link rel="icon" type="image/svg+xml" href="/VarsityScholar/assets/images/favicon.svg"><link rel="icon" type="image/svg+xml" href="/VarsityScholar/assets/images/favicon.svg">
 
-<title>Edit User - ScholarX</title>
+<title>Edit User - VarsityScholar</title>
 
-    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+    <link rel="stylesheet" href="/VarsityScholar/assets/css/style.css">
 
 </head>
 
@@ -239,7 +239,7 @@ Update User
 </form>
 
 
-    <script src="/ScholarX/assets/js/app.js"></script>
+    <script src="/VarsityScholar/assets/js/app.js"></script>
 
 </body>
 

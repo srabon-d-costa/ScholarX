@@ -51,17 +51,17 @@ if(isset($_POST['login']))
 <!DOCTYPE html>
 <html>
 
-<head>
+<head><link rel="icon" type="image/svg+xml" href="/VarsityScholar/assets/images/favicon.svg"><link rel="icon" type="image/svg+xml" href="/VarsityScholar/assets/images/favicon.svg">
 
-<title>ScholarX Login</title>
+<title>VarsityScholar Login</title>
 
-    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+    <link rel="stylesheet" href="/VarsityScholar/assets/css/style.css">
 
 </head>
 
 <body>
 
-<h2>ScholarX Login</h2>
+<h2>VarsityScholar Login</h2>
 
 <p>
 <?= $message; ?>
@@ -97,7 +97,7 @@ Login
 
 </form>
 
-    <script src="/ScholarX/assets/js/app.js"></script>
+    <script src="/VarsityScholar/assets/js/app.js"></script>
 
 </body>
 

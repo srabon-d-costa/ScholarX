@@ -27,13 +27,13 @@ $unreadCount = $notification->unreadCount($user_id);
 <html>
 
 
-<head>
+<head><link rel="icon" type="image/svg+xml" href="/VarsityScholar/assets/images/favicon.svg"><link rel="icon" type="image/svg+xml" href="/VarsityScholar/assets/images/favicon.svg">
 
     <title>
-        Student Dashboard - ScholarX
+        Student Dashboard - VarsityScholar
     </title>
 
-    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+    <link rel="stylesheet" href="/VarsityScholar/assets/css/style.css">
 
 </head>
 
@@ -47,7 +47,7 @@ $unreadCount = $notification->unreadCount($user_id);
 
 
 <p>
-    ScholarX Student Research Portal
+    VarsityScholar Student Research Portal
 </p>
 
 
@@ -148,7 +148,7 @@ $unreadCount = $notification->unreadCount($user_id);
 </ul>
 
 
-    <script src="/ScholarX/assets/js/app.js"></script>
+    <script src="/VarsityScholar/assets/js/app.js"></script>
 
 </body>
 

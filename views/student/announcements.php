@@ -16,9 +16,9 @@ $announcements = $announcement->studentAnnouncements(
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>Announcements - ScholarX</title>
-    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+<head><link rel="icon" type="image/svg+xml" href="/VarsityScholar/assets/images/favicon.svg"><link rel="icon" type="image/svg+xml" href="/VarsityScholar/assets/images/favicon.svg">
+    <title>Announcements - VarsityScholar</title>
+    <link rel="stylesheet" href="/VarsityScholar/assets/css/style.css">
 
 </head>
 
@@ -77,7 +77,7 @@ $announcements = $announcement->studentAnnouncements(
 
 <?php endif; ?>
 
-    <script src="/ScholarX/assets/js/app.js"></script>
+    <script src="/VarsityScholar/assets/js/app.js"></script>
 
 </body>
 

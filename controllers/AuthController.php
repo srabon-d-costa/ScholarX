@@ -233,7 +233,7 @@ class AuthController
         */
 
         header(
-            "Location: /ScholarX/views/auth/login.php"
+            "Location: /VarsityScholar/views/auth/login.php"
         );
 
         exit();

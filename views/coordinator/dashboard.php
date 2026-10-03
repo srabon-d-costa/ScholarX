@@ -11,9 +11,9 @@ checkRole(4);
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>Coordinator Dashboard - ScholarX</title>
-    <link rel="stylesheet" href="/ScholarX/assets/css/style.css">
+<head><link rel="icon" type="image/svg+xml" href="/VarsityScholar/assets/images/favicon.svg"><link rel="icon" type="image/svg+xml" href="/VarsityScholar/assets/images/favicon.svg">
+    <title>Coordinator Dashboard - VarsityScholar</title>
+    <link rel="stylesheet" href="/VarsityScholar/assets/css/style.css">
 
 </head>
 
@@ -22,7 +22,7 @@ checkRole(4);
 <h1>Welcome Coordinator</h1>
 
 <p>
-    ScholarX Department Research Coordination
+    VarsityScholar Department Research Coordination
 </p>
 
 <h2>Coordinator Functions</h2>
@@ -55,7 +55,7 @@ checkRole(4);
 
 </ul>
 
-    <script src="/ScholarX/assets/js/app.js"></script>
+    <script src="/VarsityScholar/assets/js/app.js"></script>
 
 </body>
 
