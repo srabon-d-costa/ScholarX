@@ -361,7 +361,7 @@ These are development targets, not claims of completed features.
 
 Documentation organization was informed by [Wahidul Alam Riyad's Library Management System](https://github.com/wahidulalamriyad/full-stack-library-management-system). The descriptions and setup instructions above are specific to VarsityScholar.
 
-**License:** No license file is included in the reviewed project package. The project owner has not specified a license in this README.
+**License:** This project is licensed under the [MIT License](LICENSE).
 
 ---
 
